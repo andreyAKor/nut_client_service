@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  nut_parser:
+    build:
+      context: .
+      dockerfile: build/package/Dockerfile
+    restart: on-failure
+    ports:
+      - "6080:6080"
+    expose:
+      - 6080
+    environment:
+      HTTP_HOST: "0.0.0.0"
+      HTTP_PORT: 6080
+      CACHE_CAPACITY: 3
+    volumes:
+      - /var/log/nut_parser/:/var/log/nut_parser/
+      - /tmp/:/tmp/

@@ -1,0 +1,19 @@
+logging:
+  file: "/home/andreyakor/Документы/go-lang-projects/nut_parser/bin/nut_parser.log"
+  level: "debug"
+
+http:
+  host: "0.0.0.0"
+  port: 6080
+  bodyLimit: 1048576
+
+clients:
+  nut:
+      host: "127.0.0.1"
+      port: 3493
+      username: ""
+      passord: ""
+
+metrics:
+  nut:
+    interval: "1s"

@@ -2,8 +2,10 @@ GOBASE=$(shell pwd)
 GOBIN=$(GOBASE)/bin
 
 build:
+	@# for current arch. system
 	@go build -ldflags="-s -w" -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go || exit
-	@GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags="-s -w" -o '$(GOBIN)/nut_parser_mips' ./cmd/nut_parser/main.go || exit
+	@# for MIPS arch. system on Onion Omega2/Omega2+
+	@GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags="-s -w" -o '$(GOBIN)/mips/nut_parser' ./cmd/nut_parser/main.go || exit
 
 run:
 	@go build -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go

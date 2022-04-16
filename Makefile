@@ -3,6 +3,7 @@ GOBIN=$(GOBASE)/bin
 
 build:
 	@go build -ldflags="-s -w" -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go || exit
+	@GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags="-s -w" -o '$(GOBIN)/nut_parser_mips' ./cmd/nut_parser/main.go || exit
 
 run:
 	@go build -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go

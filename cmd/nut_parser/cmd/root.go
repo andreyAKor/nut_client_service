@@ -25,7 +25,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "nut_parser",
 	Short: "NUT parser service application",
-	Long:  "The NUT parser service is the most simplified service for storing resized images from another web-resources and storing this resized images in own file lru-cache.",
+	Long:  "The NUT parser service is the most simplified service for reading NUT data about UPS state and present NUT data on prometheus metrics and on service API.",
 	RunE:  run,
 }
 

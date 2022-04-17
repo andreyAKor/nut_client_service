@@ -3,13 +3,13 @@ GOBIN=$(GOBASE)/bin
 
 build:
 	@# for current arch. system
-	@go build -ldflags="-s -w" -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go || exit
+	@go build -ldflags="-s -w" -o '$(GOBIN)/nut_client_service' ./cmd/nut_client_service/main.go || exit
 	@# for MIPS arch. system on Onion Omega2/Omega2+
-	@GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags="-s -w" -o '$(GOBIN)/mips/nut_parser' ./cmd/nut_parser/main.go || exit
+	@GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags="-s -w" -o '$(GOBIN)/mips/nut_client_service' ./cmd/nut_client_service/main.go || exit
 
 run:
-	@go build -o '$(GOBIN)/nut_parser' ./cmd/nut_parser/main.go
-	@'$(GOBIN)/nut_parser' --config='$(GOBASE)/configs/nut_parser.yml'
+	@go build -o '$(GOBIN)/nut_client_service' ./cmd/nut_client_service/main.go
+	@'$(GOBIN)/nut_client_service' --config='$(GOBASE)/configs/nut_client_service.yml'
 
 up:
 	@docker-compose up -d --build

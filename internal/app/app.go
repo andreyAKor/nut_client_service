@@ -6,8 +6,8 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	"github.com/andreyAKor/nut_parser/internal/http/server"
-	metricsNut "github.com/andreyAKor/nut_parser/internal/metrics/nut"
+	"github.com/andreyAKor/nut_client_service/internal/http/server"
+	metricsNut "github.com/andreyAKor/nut_client_service/internal/metrics/nut"
 )
 
 var _ io.Closer = (*App)(nil)

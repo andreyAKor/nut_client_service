@@ -9,11 +9,11 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 
-	"github.com/andreyAKor/nut_parser/internal/http/clients/nut"
+	"github.com/andreyAKor/nut_client_service/internal/http/clients/nut"
 )
 
 var metrics = promauto.NewHistogramVec(prometheus.HistogramOpts{
-	Namespace: "nut_parser",
+	Namespace: "nut_client_service",
 	Name:      "ups_variables",
 	Help:      "Variables of UPS list",
 	Buckets:   []float64{0.005, 0.01, 0.05, 0.1, 0.5, 1, 5},

@@ -1,5 +1,5 @@
 # Проектная работа по курсу "Разработчик Golang"
-[![Build Status](https://travis-ci.com/andreyAKor/nut_parser.svg?branch=master)](https://travis-ci.com/andreyAKor/nut_parser)
+[![Build Status](https://travis-ci.com/andreyAKor/nut_client_service.svg?branch=master)](https://travis-ci.com/andreyAKor/nut_client_service)
 
 Все команды выполняются из корня проекта.
 
@@ -8,17 +8,17 @@
 ```shell script
 $ make run
 docker-compose up --build
-Creating network "nut_parser_default" with the default driver
-Building nut_parser
+Creating network "nut_client_service_default" with the default driver
+Building nut_client_service
 ...
 Successfully built cbc5e0e4e6a1
-Successfully tagged nut_parser_nut_parser:latest
-Creating nut_parser_nut_parser_1 ... done
-Attaching to nut_parser_nut_parser_1
+Successfully tagged nut_client_service_nut_client_service:latest
+Creating nut_client_service_nut_client_service_1 ... done
+Attaching to nut_client_service_nut_client_service_1
 ```
 
 Сервис поднимается на локальном хосте на порту 6080.
-По умолчанию настроено кеширование только 3-х последних нарезанных изображений. Все нарезанные изображения сохраняются в папке `/tmp`, а имена закешированных файлов имеют префикс `nut_parser` (пример: `nut_parser564429678`).
+По умолчанию настроено кеширование только 3-х последних нарезанных изображений. Все нарезанные изображения сохраняются в папке `/tmp`, а имена закешированных файлов имеют префикс `nut_client_service` (пример: `nut_client_service564429678`).
 
 Имеется исходное изображение http://www.audubon.org/sites/default/files/a1_1902_16_barred-owl_sandra_rothenberg_kk.jpg размером 1714px × 1207px.
 

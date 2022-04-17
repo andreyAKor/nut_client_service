@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  nut_parser:
+  nut_client_service:
     build:
       context: .
       dockerfile: build/package/Dockerfile
@@ -15,5 +15,5 @@ services:
       HTTP_PORT: 6080
       CACHE_CAPACITY: 3
     volumes:
-      - /var/log/nut_parser/:/var/log/nut_parser/
+      - /var/log/nut_client_service/:/var/log/nut_client_service/
       - /tmp/:/tmp/

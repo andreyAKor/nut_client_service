@@ -1,4 +1,4 @@
-module github.com/andreyAKor/nut_parser
+module github.com/andreyAKor/nut_client_service
 
 go 1.17
 

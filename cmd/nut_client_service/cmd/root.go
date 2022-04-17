@@ -11,12 +11,12 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 
-	"github.com/andreyAKor/nut_parser/internal/app"
-	"github.com/andreyAKor/nut_parser/internal/configs"
-	clientsNut "github.com/andreyAKor/nut_parser/internal/http/clients/nut"
-	"github.com/andreyAKor/nut_parser/internal/http/server"
-	"github.com/andreyAKor/nut_parser/internal/logging"
-	metricsNut "github.com/andreyAKor/nut_parser/internal/metrics/nut"
+	"github.com/andreyAKor/nut_client_service/internal/app"
+	"github.com/andreyAKor/nut_client_service/internal/configs"
+	clientsNut "github.com/andreyAKor/nut_client_service/internal/http/clients/nut"
+	"github.com/andreyAKor/nut_client_service/internal/http/server"
+	"github.com/andreyAKor/nut_client_service/internal/logging"
+	metricsNut "github.com/andreyAKor/nut_client_service/internal/metrics/nut"
 )
 
 var cfgFile string

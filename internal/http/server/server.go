@@ -162,7 +162,7 @@ func (s Server) body(handler http.Handler) http.Handler {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Error().Err(err).Msg("body read fail")
 
-			if err := s.writeJSON(Response{Error: ErrInvalidRequest}, w); err != nil {
+			if err := s.writeJSON(Response{Error: ErrInvalidRequest.Error()}, w); err != nil {
 				log.Error().Err(err).Msg("writeJSON fail")
 			}
 
@@ -173,7 +173,7 @@ func (s Server) body(handler http.Handler) http.Handler {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Error().Err(err).Msg("body close fail")
 
-			if err := s.writeJSON(Response{Error: ErrInvalidRequest}, w); err != nil {
+			if err := s.writeJSON(Response{Error: ErrInvalidRequest.Error()}, w); err != nil {
 				log.Error().Err(err).Msg("writeJSON fail")
 			}
 
@@ -207,7 +207,7 @@ func (s Server) toJSON(h func(w http.ResponseWriter, r *http.Request) (interface
 
 		data, err := h(w, r)
 		if err != nil {
-			rs.Error = err
+			rs.Error = err.Error()
 		} else {
 			rs.Data = data
 		}

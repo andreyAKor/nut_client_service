@@ -3,7 +3,7 @@ module github.com/andreyAKor/nut_client_service
 go 1.17
 
 require (
-	github.com/andreyAKor/go.nut v0.0.0-20220219091450-bd8f121e1fa1
+	github.com/andreyAKor/nut_client v0.0.0-20220417115919-668767663d4d
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.12.1
 	github.com/rs/zerolog v1.26.1
@@ -30,7 +30,6 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
-	github.com/robbiet480/go.nut v0.0.0-20220219091450-bd8f121e1fa1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

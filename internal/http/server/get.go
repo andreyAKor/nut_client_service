@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	nut "github.com/andreyAKor/go.nut"
+	"github.com/andreyAKor/nut_client"
 	"github.com/pkg/errors"
 )
 
@@ -45,7 +45,7 @@ func (s *Server) get(w http.ResponseWriter, r *http.Request) (interface{}, error
 	return convertListToList(list), nil
 }
 
-func convertListToList(l []nut.UPS) []UPS {
+func convertListToList(l []*nut_client.UPS) []UPS {
 	var res []UPS
 	for _, v := range l {
 		res = append(res, UPS{
@@ -61,7 +61,7 @@ func convertListToList(l []nut.UPS) []UPS {
 	return res
 }
 
-func convertVariableToVariable(l []nut.Variable) []Variable {
+func convertVariableToVariable(l []nut_client.Variable) []Variable {
 	var res []Variable
 	for _, v := range l {
 		res = append(res, Variable{
@@ -77,7 +77,7 @@ func convertVariableToVariable(l []nut.Variable) []Variable {
 	return res
 }
 
-func convertCommandsToCommands(l []nut.Command) []Command {
+func convertCommandsToCommands(l []nut_client.Command) []Command {
 	var res []Command
 	for _, v := range l {
 		res = append(res, Command{

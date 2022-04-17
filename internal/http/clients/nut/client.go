@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	nut "github.com/andreyAKor/go.nut"
+	"github.com/andreyAKor/nut_client"
 	"github.com/pkg/errors"
 )
 
@@ -24,7 +24,7 @@ func New(host string, port int, username, password string) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) GetUPSList(ctx context.Context) ([]nut.UPS, error) {
+func (c *Client) GetUPSList(ctx context.Context) ([]*nut_client.UPS, error) {
 	client, err := c.connect(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "connect fail")
@@ -42,10 +42,10 @@ func (c *Client) GetUPSList(ctx context.Context) ([]nut.UPS, error) {
 	return list, nil
 }
 
-func (c *Client) connect(ctx context.Context) (*nut.Client, error) {
+func (c *Client) connect(ctx context.Context) (*nut_client.Client, error) {
 	ctx, _ = context.WithTimeout(ctx, time.Second*1)
 
-	client, err := nut.Connect(ctx, c.host, c.port)
+	client, err := nut_client.NewClient(ctx, c.host, c.port)
 	if err != nil {
 		return nil, errors.Wrap(err, "connect fail")
 	}
@@ -60,10 +60,10 @@ func (c *Client) connect(ctx context.Context) (*nut.Client, error) {
 		}
 	}
 
-	return &client, nil
+	return client, nil
 }
 
-func (c *Client) disconnect(client *nut.Client) error {
+func (c *Client) disconnect(client *nut_client.Client) error {
 	ok, err := client.Disconnect()
 	if err != nil {
 		return errors.Wrap(err, "disconnect fail")

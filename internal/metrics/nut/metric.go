@@ -8,6 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/rs/zerolog/log"
 
 	"github.com/andreyAKor/nut_client_service/internal/http/clients/nut"
 )
@@ -49,7 +50,8 @@ func (m *Metric) Run(ctx context.Context) error {
 	for _ = range ticker.C {
 		list, err := m.nutClient.GetUPSList(ctx)
 		if err != nil {
-			return errors.Wrap(err, "get UPS list fail")
+			log.Warn().Err(err).Msg("get UPS list fail")
+			continue
 		}
 
 		for _, ups := range list {

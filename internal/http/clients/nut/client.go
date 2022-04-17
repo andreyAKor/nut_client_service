@@ -8,6 +8,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+const timeout = 1
+
 type Client struct {
 	host     string
 	port     int
@@ -43,7 +45,7 @@ func (c *Client) GetUPSList(ctx context.Context) ([]*nut_client.UPS, error) {
 }
 
 func (c *Client) connect(ctx context.Context) (*nut_client.Client, error) {
-	ctx, _ = context.WithTimeout(ctx, time.Second*1)
+	ctx, _ = context.WithTimeout(ctx, time.Second*timeout)
 
 	client, err := nut_client.NewClient(ctx, c.host, c.port)
 	if err != nil {

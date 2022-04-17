@@ -75,6 +75,36 @@ func (c *Client) SendCommand(ctx context.Context, name, command string) error {
 	return nil
 }
 
+// SetVariable Sets the given variableName to the given value on the UPS.
+func (c *Client) SetVariable(ctx context.Context, name, variableName, value string) error {
+	client, err := c.connect(ctx)
+	if err != nil {
+		return errors.Wrap(err, "connect fail")
+	}
+
+	list, err := client.GetUPSList()
+	if err != nil {
+		return errors.Wrap(err, "get UPS list fail")
+	}
+	for _, ups := range list {
+		if ups.Name == name {
+			ok, err := ups.SetVariable(variableName, value)
+			if err != nil {
+				return errors.Wrapf(err, `set variable "%s" to UPS "%s" with value "%s" has failed`, variableName, name, value)
+			}
+			if !ok {
+				return errors.Wrapf(err, `set variable "%s" to UPS "%s" with value "%s" is error`, variableName, name, value)
+			}
+		}
+	}
+
+	if err := c.disconnect(client); err != nil {
+		return errors.Wrap(err, "disconnect fail")
+	}
+
+	return nil
+}
+
 // connect Connecting to NUT.
 func (c *Client) connect(ctx context.Context) (*nut_client.Client, error) {
 	ctx, _ = context.WithTimeout(ctx, time.Second*timeout)

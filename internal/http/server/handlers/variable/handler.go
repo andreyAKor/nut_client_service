@@ -1,4 +1,4 @@
-package command
+package variable
 
 import (
 	"encoding/json"
@@ -32,18 +32,18 @@ func (h *Handler) Handle() func(http.ResponseWriter, *http.Request) (interface{}
 			return nil, errors.Wrap(err, "prepare command struct from request body fail")
 		}
 
-		if err := h.nutClient.SendCommand(r.Context(), req.Name, req.Command); err != nil {
+		if err := h.nutClient.SetVariable(r.Context(), req.Name, req.VariableName, req.Value); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			log.Error().Err(err).Msg("send command fail")
+			log.Error().Err(err).Msg("set variable fail")
 
-			return nil, errors.Wrap(err, "send command fail")
+			return nil, errors.Wrap(err, "set variable fail")
 		}
 
 		return nil, nil
 	}
 }
 
-func prepareCommand(r *http.Request) (*command, error) {
+func prepareCommand(r *http.Request) (*variable, error) {
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "reading from body fail")
@@ -52,7 +52,7 @@ func prepareCommand(r *http.Request) (*command, error) {
 		return nil, errors.Wrap(err, "copying from response body fail")
 	}
 
-	req := &command{}
+	req := &variable{}
 	if err := json.Unmarshal(data, req); err != nil {
 		return nil, errors.Wrap(err, "json unmarshal fail")
 	}

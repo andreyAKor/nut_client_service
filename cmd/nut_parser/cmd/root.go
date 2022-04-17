@@ -53,31 +53,36 @@ func run(cmd *cobra.Command, args []string) error {
 	defer cancel()
 
 	// Init config
-	c := new(configs.Config)
-	if err := c.Init(cfgFile); err != nil {
+	cfg := &configs.Config{}
+	if err := cfg.Init(cfgFile); err != nil {
 		return errors.Wrap(err, "init config failed")
 	}
 
 	// Init logger
-	l := logging.New(c.Logging.File, c.Logging.Level)
+	l := logging.New(cfg.Logging.File, cfg.Logging.Level)
 	if err := l.Init(); err != nil {
 		return errors.Wrap(err, "init logging failed")
 	}
 
 	// Init clients
-	nutClient, err := clientsNut.New(c.Clients.NUT.Host, c.Clients.NUT.Port, c.Clients.NUT.Username, c.Clients.NUT.Password)
+	nutClient, err := clientsNut.New(
+		cfg.Clients.NUT.Host,
+		cfg.Clients.NUT.Port,
+		cfg.Clients.NUT.Username,
+		cfg.Clients.NUT.Password,
+	)
 	if err != nil {
 		log.Fatal().Err(err).Msg("can't initialize NUT client")
 	}
 
 	// Init http-server
-	srv, err := server.New(c.HTTP.Host, c.HTTP.Port, c.HTTP.BodyLimit, nutClient)
+	srv, err := server.New(cfg.HTTP.Host, cfg.HTTP.Port, cfg.HTTP.BodyLimit, nutClient)
 	if err != nil {
 		log.Fatal().Err(err).Msg("can't initialize http-server")
 	}
 
 	// Init metrics
-	nutMetrics, err := metricsNut.New(c.Metrics.NUT.Interval, nutClient)
+	nutMetrics, err := metricsNut.New(cfg.Metrics.NUT.Interval, nutClient)
 
 	// Init and run app
 	a, err := app.New(srv, nutMetrics)

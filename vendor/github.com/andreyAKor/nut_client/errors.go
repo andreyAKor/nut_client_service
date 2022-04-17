@@ -1,6 +1,9 @@
 package nut_client
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // errorForMessage returns an error for the specified NUT error code.
 func errorForMessage(message string) (err error) {
@@ -52,8 +55,8 @@ func errorForMessage(message string) (err error) {
 	case "INVALID-VALUE":
 		err = errors.New("The value specified in the request is not valid. This usually applies to a SET of an ENUM type which is using a value which is not in the list of allowed values")
 	default:
-		err = errors.New("Unknown error code")
+		err = errors.New(fmt.Sprintf(`Unknown error code for "%s"`, message))
 	}
 
-	return err
+	return
 }

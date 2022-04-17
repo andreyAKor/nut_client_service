@@ -18,6 +18,7 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"github.com/andreyAKor/nut_client_service/internal/http/clients/nut"
+	handlerCommand "github.com/andreyAKor/nut_client_service/internal/http/server/handlers/command"
 	handlerGet "github.com/andreyAKor/nut_client_service/internal/http/server/handlers/get"
 )
 
@@ -62,6 +63,7 @@ func (s *Server) Run(ctx context.Context) error {
 	mux := http.NewServeMux()
 	mux.Handle("/metrics", promhttp.Handler())
 	mux.HandleFunc("/get", s.method(s.toJSON(handlerGet.New(s.nutClient).Handle()), "GET"))
+	mux.HandleFunc("/command", s.method(s.toJSON(handlerCommand.New(s.nutClient).Handle()), "POST"))
 
 	// middlewares
 	handler := s.metrics(mux)

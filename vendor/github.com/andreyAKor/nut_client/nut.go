@@ -111,7 +111,7 @@ func (c *Client) SendCommand(cmd string) ([]string, error) {
 		return nil, fmt.Errorf("%w: read response fail", err)
 	}
 	if strings.HasPrefix(resp[0], "ERR ") {
-		return nil, fmt.Errorf("%w: NUT error", errorForMessage(strings.Split(resp[0], " ")[1]))
+		return nil, fmt.Errorf("%w: NUT error", errorForMessage(strings.TrimSuffix(strings.Split(resp[0], " ")[1], "\n")))
 	}
 
 	return resp, nil

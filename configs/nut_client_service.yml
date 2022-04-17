@@ -11,8 +11,8 @@ clients:
   nut:
       host: "127.0.0.1"
       port: 3493
-      username: ""
-      passord: ""
+      username: "nut_client_service"
+      password: "1234567890"
 
 metrics:
   nut:

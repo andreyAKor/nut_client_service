@@ -19,7 +19,7 @@ func New(nutClient *nut.Client) *Handler {
 	}
 }
 
-func (h *Handler) Handle() func(_ http.ResponseWriter, r *http.Request) (interface{}, error) {
+func (h *Handler) Handle() func(http.ResponseWriter, *http.Request) (interface{}, error) {
 	return func(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		list, err := h.nutClient.GetUPSList(r.Context())
 		if err != nil {

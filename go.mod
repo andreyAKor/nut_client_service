@@ -3,7 +3,7 @@ module github.com/andreyAKor/nut_client_service
 go 1.17
 
 require (
-	github.com/andreyAKor/nut_client v0.0.2
+	github.com/andreyAKor/nut_client v0.0.5
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.12.1
 	github.com/rs/zerolog v1.26.1

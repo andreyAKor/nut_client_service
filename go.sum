@@ -61,8 +61,6 @@ github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuy
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d/go.mod h1:rBZYJk541a8SKzHPHnH3zbiI+7dagKZ0cgpgrD7Fyho=
-github.com/andreyAKor/nut_client v0.0.0-20220417123106-61b8fff706f2 h1:aJ0mUsB3Tx7sDBj0D/Cic+gxwkBI81YKmNJYzLtSUHc=
-github.com/andreyAKor/nut_client v0.0.0-20220417123106-61b8fff706f2/go.mod h1:6Tl94BdCcPlAU33yzK7hrCS1YwXFGLUWHHpvvuIY8IE=
 github.com/andreyAKor/nut_client v0.0.2 h1:yLaezkekUSv6xQF9I4k9NhhSLRtptErzqNEr+rfF9A0=
 github.com/andreyAKor/nut_client v0.0.2/go.mod h1:6Tl94BdCcPlAU33yzK7hrCS1YwXFGLUWHHpvvuIY8IE=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=

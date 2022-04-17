@@ -64,11 +64,18 @@ func (c *Client) ReadResponse(endLine string, multiLineResponse bool) ([]string,
 
 	for {
 		line, err := connbuff.ReadString('\n')
+
 		if err != nil && err != io.EOF {
 			return nil, fmt.Errorf("%w: error reading response", err)
+
 		}
 
 		if len(line) > 0 {
+			if strings.HasPrefix(line, "ERR ") {
+				response = append(response, line)
+				break
+			}
+
 			cleanLine := strings.TrimSuffix(line, "\n")
 			lines := strings.Split(cleanLine, "\n")
 			response = append(response, lines...)

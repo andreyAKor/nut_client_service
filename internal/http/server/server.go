@@ -73,7 +73,7 @@ func (s *Server) Run(ctx context.Context) error {
 		Addr:    net.JoinHostPort(s.host, strconv.Itoa(s.port)),
 		Handler: handler,
 	}
-	if err := s.server.ListenAndServe(); errors.Is(err, http.ErrServerClosed) {
+	if err := s.server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 		return errors.Wrap(err, "http-server listen fail")
 	}
 

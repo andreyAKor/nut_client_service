@@ -47,7 +47,7 @@ func (m *Metric) Run(ctx context.Context) error {
 	}()
 
 	for _ = range ticker.C {
-		list, err := m.nutClient.GetUPSList()
+		list, err := m.nutClient.GetUPSList(ctx)
 		if err != nil {
 			return errors.Wrap(err, "get UPS list fail")
 		}

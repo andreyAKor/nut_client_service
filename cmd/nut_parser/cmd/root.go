@@ -23,15 +23,16 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
-	Use:   "nut_parser",
-	Short: "NUT parser service application",
-	Long:  "The NUT parser service is the most simplified service for reading NUT data about UPS state and present NUT data on prometheus metrics and on service API.",
+	Use:   "nut_client_service",
+	Short: "NUT client service application",
+	Long:  "The NUT client service is the most simplified service for reading NUT data about UPS state and present NUT data on prometheus metrics and on service API.",
 	RunE:  run,
 }
 
 func init() {
 	pf := rootCmd.PersistentFlags()
 	pf.StringVar(&cfgFile, "config", "", "config file")
+
 	if err := cobra.MarkFlagRequired(pf, "config"); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -92,6 +93,8 @@ func run(cmd *cobra.Command, args []string) error {
 	if err := a.Run(ctx); err != nil {
 		log.Fatal().Err(err).Msg("app runnign fail")
 	}
+
+	log.Info().Msg("Started")
 
 	// Graceful shutdown
 	interruptCh := make(chan os.Signal, 1)

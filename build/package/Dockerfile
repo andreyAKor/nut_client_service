@@ -1,5 +1,5 @@
 # Environment
-FROM golang:1.14 as build-env
+FROM golang:1.17 as build-env
 
 RUN mkdir -p /opt/nut_parser
 WORKDIR /opt/nut_parser

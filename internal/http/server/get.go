@@ -3,8 +3,8 @@ package server
 import (
 	"net/http"
 
+	nut "github.com/andreyAKor/go.nut"
 	"github.com/pkg/errors"
-	nut "github.com/robbiet480/go.nut"
 )
 
 // UPS contains information about a specific UPS provided by the NUT instance.
@@ -37,7 +37,7 @@ type Command struct {
 
 // get
 func (s *Server) get(w http.ResponseWriter, r *http.Request) (interface{}, error) {
-	list, err := s.nutClient.GetUPSList()
+	list, err := s.nutClient.GetUPSList(r.Context())
 	if err != nil {
 		return nil, errors.Wrap(err, "get UPS list fail")
 	}

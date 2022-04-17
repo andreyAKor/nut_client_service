@@ -1,8 +1,11 @@
 package nut
 
 import (
+	"context"
+	"time"
+
+	nut "github.com/andreyAKor/go.nut"
 	"github.com/pkg/errors"
-	nut "github.com/robbiet480/go.nut"
 )
 
 type Client struct {
@@ -21,8 +24,8 @@ func New(host string, port int, username, password string) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) GetUPSList() ([]nut.UPS, error) {
-	client, err := c.connect()
+func (c *Client) GetUPSList(ctx context.Context) ([]nut.UPS, error) {
+	client, err := c.connect(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "connect fail")
 	}
@@ -39,8 +42,10 @@ func (c *Client) GetUPSList() ([]nut.UPS, error) {
 	return list, nil
 }
 
-func (c *Client) connect() (*nut.Client, error) {
-	client, err := nut.Connect(c.host, c.port)
+func (c *Client) connect(ctx context.Context) (*nut.Client, error) {
+	ctx, _ = context.WithTimeout(ctx, time.Second*1)
+
+	client, err := nut.Connect(ctx, c.host, c.port)
 	if err != nil {
 		return nil, errors.Wrap(err, "connect fail")
 	}

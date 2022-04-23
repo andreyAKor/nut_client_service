@@ -3,6 +3,7 @@ package nut
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/pkg/errors"
@@ -13,12 +14,26 @@ import (
 	"github.com/andreyAKor/nut_client_service/internal/http/clients/nut"
 )
 
-var metrics = promauto.NewHistogramVec(prometheus.HistogramOpts{
+var metrics = promauto.NewGaugeVec(prometheus.GaugeOpts{
 	Namespace: "nut_client_service",
 	Name:      "ups_variables",
 	Help:      "Variables of UPS list",
-	Buckets:   []float64{0.005, 0.01, 0.05, 0.1, 0.5, 1, 5},
-}, []string{"ups", "variable", "value"})
+}, []string{"ups", "variable"})
+
+var mappingUPSStatuses = map[string]int{
+	"CAL":     0,
+	"TRIM":    1,
+	"BOOST":   2,
+	"OL":      3,
+	"OB":      4,
+	"OVER":    5,
+	"LB":      6,
+	"RB":      7,
+	"BYPASS":  8,
+	"OFF":     9,
+	"CHRG":    10,
+	"DISCHRG": 11,
+}
 
 type Metric struct {
 	interval  time.Duration
@@ -56,10 +71,43 @@ func (m *Metric) Run(ctx context.Context) error {
 
 		for _, ups := range list {
 			for _, v := range ups.Variables {
-				metrics.WithLabelValues(ups.Name, v.Name, fmt.Sprintf("%v", v.Value))
+				if v.Type == "INTEGER" || v.Type == "FLOAT_64" {
+					value, err := strconv.ParseFloat(fmt.Sprintf("%v", v.Value), 64)
+					if err != nil {
+						log.Warn().Err(err).Msg("parse float64 of value fail")
+						continue
+					}
+
+					metrics.WithLabelValues(ups.Name, v.Name).Set(value)
+				} else {
+					if v.Type == "STRING" {
+						str, ok := v.Value.(string)
+						if !ok {
+							log.Warn().Err(err).Msg("type cast to string fail")
+							continue
+						}
+
+						if v.Name == "ups.status" {
+							metrics.WithLabelValues(ups.Name, v.Name).Set(float64(mapUpsStatus(str)))
+						} else {
+							// TODO: Parser another string values to float metrics representations
+							//metrics.WithLabelValues(ups.Name, v.Name).Set(str)
+						}
+					}
+				}
 			}
 		}
 	}
 
 	return nil
+}
+
+// mapUpsStatus Mapping string value of UPS status to int constants
+func mapUpsStatus(value string) int {
+	res, ok := mappingUPSStatuses[value]
+	if !ok {
+		return -1
+	}
+
+	return res
 }

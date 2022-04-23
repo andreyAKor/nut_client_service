@@ -1,0 +1,13 @@
+[Unit]
+Description=nut_client_service
+
+[Service]
+StartLimitInterval=1
+StartLimitBurst=1
+ExecStart=/opt/nut_client_service/nut_client_service --config=/opt/nut_client_service/nut_client_service.yml
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
